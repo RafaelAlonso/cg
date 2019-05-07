@@ -1,3 +1,12 @@
+<!--
+****	Computacao Grafica - Atividade Pratica 1 (A1)
+****    	Rafael Alonso   (RA 620084)
+****		Ton Paes        (RA 62----)
+**** 		William Alves 	(RA 620203)
+
+ *** Code Source: threejs.org/examples/ ***
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -30,9 +39,9 @@
 			<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> - 3DS loader
 		</div>
 
-		<script src="../build/three.js"></script>
-		<script src="js/controls/TrackballControls.js"></script>
-		<script src="js/loaders/TDSLoader.js"></script>
+		<script src="javascript/three.js"></script>
+		<script src="javascript/TrackballControls.js"></script>
+		<script src="javascript/TDSLoader.js"></script>
 
 		<script>
 
@@ -61,11 +70,11 @@
 
 				//3ds files dont store normal maps
 				var loader = new THREE.TextureLoader();
-				var normal = loader.load( 'models/3ds/portalgun/textures/normal.jpg' );
+				var normal = loader.load( 'model/textures/normal.jpg' );
 
 				var loader = new THREE.TDSLoader( );
-				loader.setResourcePath( 'models/3ds/portalgun/textures/' );
-				loader.load( 'models/3ds/portalgun/portalgun.3ds', function ( object ) {
+				loader.setResourcePath( 'model/textures/' );
+				loader.load( 'model/portalgun.3ds', function ( object ) {
 
 					object.traverse( function ( child ) {
 
