@@ -60,7 +60,11 @@
 
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 10 );
 				camera.position.z = 2;
-
+				cameraA = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 10 );
+				cameraA.position.z = 2;
+				cameraB = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 10 );
+				cameraB.position.z = -5;
+				
 				controls = new THREE.TrackballControls( camera );
 
 				scene = new THREE.Scene();
@@ -128,6 +132,15 @@
 							portalgun.rotation.x +=0.1;
 							break;
 						
+					/*	//Pressing C for another camera position
+						case 67:
+							camera.position.x = -5;
+							break;
+						//Pressing V for the default camera position
+						case 86:
+							camera.position.x = 5;
+							break;
+					*/		
 					}
 			}
 
