@@ -1,7 +1,7 @@
 <!--
 ****	Computacao Grafica - Atividade Pratica 1 (A1)
 ****    	Rafael Alonso   (RA 620084)
-****		Ton Paes        (RA 62----)
+****		Washington Paes (RA 620190)
 **** 		William Alves 	(RA 620203)
 
  *** Code Source: threejs.org/examples/ ***
@@ -47,6 +47,8 @@
 
 			var container, controls;
 			var camera, scene, renderer;
+			//Container for the portalgun model
+			var portalgun
 
 			init();
 			animate();
@@ -71,8 +73,8 @@
 				//3ds files dont store normal maps
 				var loader = new THREE.TextureLoader();
 				var normal = loader.load( 'model/textures/normal.jpg' );
-
-				var loader = new THREE.TDSLoader( );
+				portalgun = new THREE.Object3D();
+				var loader = new THREE.TDSLoader();
 				loader.setResourcePath( 'model/textures/' );
 				loader.load( 'model/portalgun.3ds', function ( object ) {
 
@@ -88,6 +90,7 @@
 
 					scene.add( object );
 
+				portalgun = object;
 				} );
 
 				renderer = new THREE.WebGLRenderer();
@@ -95,8 +98,9 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
 
+				// Event listeners for interaction 
 				window.addEventListener( 'resize', resize, false );
-
+				window.addEventListener( 'keydown', keyboardControls );
 			}
 
 			function resize() {
@@ -106,6 +110,25 @@
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
+			}
+
+			// Recieve keyboard inputs to control the object
+			function keyboardControls(event){
+					switch (event.keyCode){
+						case 37:
+							portalgun.rotation.z -=0.1;
+							break;
+						case 38:
+							portalgun.rotation.x -=0.1;
+							break;
+						case 39:
+							portalgun.rotation.z +=0.1;
+							break;
+						case 40:
+							portalgun.rotation.x +=0.1;
+							break;
+						
+					}
 			}
 
 			function animate() {
