@@ -34,8 +34,10 @@
 	</head>
 
 	<body>
-		<div id="info">
-			Computacao Grafica - Atividade 2
+		<div class="info">
+			Computacao Grafica - Atividade 2 - Rafael, Ton e William
+			<p>Teclado: Utilize as setas para mover o PortalGun. Utilize 'a', 'b', 'c' e 'd' para trocar a camera.</p>
+			<p>Mouse: Clique e arraste para mover ambos os modelos</p>
 		</div>
 
 		<!-- ThreeJS Scripts-->
@@ -79,14 +81,9 @@
 
 
 				//Cameras
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 100 );
-				camera.position.z = 12;
-				cameraA = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 100 );
-				cameraA.position.z = 12;
-				cameraB = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 100 );
-				cameraB.position.z = -15;
-				cameraEarth = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
-				cameraEarth.position.z = 30;
+				cameraC = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.5, 200 );
+				cameraC.position.z = -25;
+				camera = cameraC;
 
 				//Camera Controls
 				controls = new THREE.TrackballControls( camera );
@@ -103,7 +100,6 @@
 				scene.add( ambientLight );
 				var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
 				camera.add( pointLight );
-				//scene.add( cameraEarth );
 
 				//Define a Renderer
 				renderer = new THREE.WebGLRenderer();
@@ -139,6 +135,10 @@
 
 					} );
 
+					object.scale = 1;
+					object.x = 0.1;
+					object.y = 0.1;
+					object.z = 0.1;
 					scene.add( object );
 
 				portalgun = object;
@@ -152,6 +152,7 @@
 				loader.setResourcePath( 'model/lunar-textures/' );
 				loader.load( 'model/lunar.3ds', function ( object ) {
 						earth = object;
+						earth.scale = 1;
 						scene.add(earth);
 						earth.position.set(0, 0, 0);
 				} );
@@ -191,16 +192,23 @@
 						case 40:
 							portalgun.rotation.x +=0.1;
 							break;
-						
-					/*	//Pressing C for another camera position
+
+						//Pressing 'A' for camera position '1'
+						case 65:
+							camera.position.set(0, 5, 20);
+							break;
+						//Pressing 'B' for camera position '2'
+						case 66:
+							camera.position.set(20, 15, 200);
+							break;
+						//Pressing 'C' the default camera position
 						case 67:
-							camera.position.x = -5;
+							camera.position.set(0, 0, -25);
 							break;
-						//Pressing V for the default camera position
-						case 86:
-							camera.position.x = 5;
+						//Pressing 'D' for camera position '4'
+						case 68:
+							camera.position.set(0, 100, 0);
 							break;
-					*/		
 					}
 			}
 
