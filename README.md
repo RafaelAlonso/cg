@@ -36,3 +36,13 @@ $ npm run start
 ```
 
 e então abra no navegador o endereço 'http://localhost:8080' para visualizar o projeto.
+
+No linux recomenda-se usar o simple server do python:
+
+-Abra o diretório com o index no terminal e crie um servidor para poder acessar os arquivos localmente
+
+```
+$python -m SimpleHTTPSserver
+```
+
+Abra no navegador o endereço 'http://localhost:8000' para visualizar o projeto.
