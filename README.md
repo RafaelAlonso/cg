@@ -5,6 +5,7 @@
 - Rafael Alonso (RA 620084)
 - Washingtonon Paes (RA 620190)
 - William Alves (RA 620203)
+#
 
 ### Informações
 Para o projeto, é utilizada a biblioteca ThreeJS e a linguagem JavaScript, além de HTML.
