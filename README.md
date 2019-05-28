@@ -1,6 +1,6 @@
 # Computação Gráfica - Atividade Prática
 
-## Grupo responsável pelo repositório:
+### Grupo responsável pelo repositório:
 
 - Rafael Alonso (RA 620084)
 - Washingtonon Paes (RA 620190)
