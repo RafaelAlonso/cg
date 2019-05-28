@@ -38,7 +38,7 @@
 			Computacao Grafica - Atividade 2
 		</div>
 
-		<!-- ThreeJS Scripts -->
+		<!-- ThreeJS Scripts-->
 		<script src="javascript/three.js"></script>
 		<script src="javascript/TrackballControls.js"></script>
 		<script src="javascript/TDSLoader.js"></script>			
@@ -51,8 +51,9 @@
 			//Variables
 			var container, controls;
 			var camera, scene, renderer;
-			//Container for the portalgun model
+			//Containers
 			var portalgun
+			var earth
 
 			if (Detector.webgl) {
 				//Create the scene
@@ -60,6 +61,7 @@
 
 				//Loaders
 				loadPortalGun();
+				loadEarth();
 
 				//Animate
 				animate();
@@ -77,12 +79,14 @@
 
 
 				//Cameras
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 10 );
-				camera.position.z = 2;
-				cameraA = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 10 );
-				cameraA.position.z = 2;
-				cameraB = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 10 );
-				cameraB.position.z = -5;
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 100 );
+				camera.position.z = 12;
+				cameraA = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 100 );
+				cameraA.position.z = 12;
+				cameraB = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 100 );
+				cameraB.position.z = -15;
+				cameraEarth = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+				cameraEarth.position.z = 30;
 
 				//Camera Controls
 				controls = new THREE.TrackballControls( camera );
@@ -95,12 +99,20 @@
 				var directionalLight = new THREE.DirectionalLight( 0xffeedd );
 				directionalLight.position.set( 0, 0, 2 );
 				scene.add( directionalLight );
+				var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+				scene.add( ambientLight );
+				var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+				camera.add( pointLight );
+				//scene.add( cameraEarth );
 
 				//Define a Renderer
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
+
+				//var axis = new THREE.AxisHelper(10);
+				//scene.add(axis); 
 
 				//Event listeners for interaction 
 				window.addEventListener( 'resize', resize, false );
@@ -132,6 +144,28 @@
 				portalgun = object;
 				} );
 			}
+
+			function loadEarth(){
+				//3ds files dont store normal maps
+				earth = new THREE.Object3D();
+				var loader = new THREE.TDSLoader();
+				loader.setResourcePath( 'model/lunar-textures/' );
+				loader.load( 'model/lunar.3ds', function ( object ) {
+						earth = object;
+						scene.add(earth);
+						earth.position.set(0, 0, 0);
+				} );
+			}
+
+			/*function loadEarth(){
+				var loader = new THREE.OBJLoader();
+				loader.load( 'model/plants.obj', function (object) {
+						earth = object;
+						scene.add(earth);
+						earth.position.set(0, 0, 0);
+					}
+				);
+			}*/
 
 			function resize() {
 
