@@ -10,8 +10,21 @@
 Para o projeto, é utilizada a biblioteca ThreeJS e a linguagem JavaScript, além de HTML.
 
 Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados apenas para criar um servidor para rodar o projeto, podendo ser excluidos. O código das atividades encontram-se nas pastas `atividade-01` (mantido apenas para consulta) e `atividade-02` (o mais atualizado e o correto a ser utilizado nesse estágio do projeto).
+#
 
-A descrição de cada atividade consta em sua respectiva pasta.
+### Atividade 01:
+- Visualização de um modelo mais complexo, contendo um número maior de vértices e faces, fornecidos por um arquivo
+- Utilização simples de shaders, apenas redimensionamento para o volume de visão (código definido por você!)
+- Sem posicionamento correto, textura, iluminação, animação, etc ...
+
+### Atividade 02:
+- Visualização de pelo menos dois objetos diferentes;
+- Alguma iteração do usuário (teclado ou mouse), movendo pelo menos um dos objetos
+- Construção das matrizes na CPU para envio a GPU:
+- Matriz de Transformação do modelo (uma diferente para cada modelo);
+- Matriz de Visualização (uma para toda a a cena).
+- Duas posições distintas de câmeras
+#
 
 ### Setup
 No Mac, abra o terminal na pasta do projeto e utilize os comandos:
