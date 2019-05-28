@@ -7,6 +7,8 @@
 - William Alves (RA 620203)
 
 ### Informações
+Para o projeto, é utilizada a biblioteca ThreeJS e a linguagem JavaScript, além de HTML.
+
 Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados apenas para criar um servidor para rodar o projeto, podendo ser excluidos. O código das atividades encontram-se nas pastas `atividade-01` (mantido apenas para consulta) e `atividade-02` (o mais atualizado e o correto a ser utilizado nesse estágio do projeto).
 
 A descrição de cada atividade consta em sua respectiva pasta.
