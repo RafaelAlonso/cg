@@ -43,7 +43,7 @@
 		<!-- ThreeJS Scripts-->
 		<script src="javascript/three.js"></script>
 		<script src="javascript/TrackballControls.js"></script>
-		<script src="javascript/TDSLoader.js"></script>			
+		<script src="javascript/TDSLoader.js"></script>
 		<script src="javascript/OBJLoader.js"></script>
 		<script src="javascript/MTLLoader.js"></script>
 		<script src="javascript/Detector.js"></script>
@@ -55,7 +55,7 @@
 			var camera, scene, renderer;
 			//Containers
 			var portalgun
-			var earth
+			var lunar
 
 			if (Detector.webgl) {
 				//Create the scene
@@ -63,14 +63,14 @@
 
 				//Loaders
 				loadPortalGun();
-				loadEarth();
+				// loadLunar();
 
 				//Animate
 				animate();
 			} else {
 				// Error message for compatibility problems
 			    var warning = Detector.getWebGLErrorMessage();
-			    document.getElementById('container').appendChild(warning);
+			    document.querySelector('.info').appendChild(warning);
 			}
 
 			//Create the scene
@@ -108,9 +108,9 @@
 				container.appendChild( renderer.domElement );
 
 				//var axis = new THREE.AxisHelper(10);
-				//scene.add(axis); 
+				//scene.add(axis);
 
-				//Event listeners for interaction 
+				//Event listeners for interaction
 				window.addEventListener( 'resize', resize, false );
 				window.addEventListener( 'keydown', keyboardControls );
 			}
@@ -119,10 +119,10 @@
 			function loadPortalGun(){
 				//3ds files dont store normal maps
 				var loader = new THREE.TextureLoader();
-				var normal = loader.load( 'model/textures/normal.jpg' );
+				var normal = loader.load( 'model/textures/portalgun/normal.jpg' );
 				portalgun = new THREE.Object3D();
 				var loader = new THREE.TDSLoader();
-				loader.setResourcePath( 'model/textures/' );
+				loader.setResourcePath( 'model/textures/portalgun/' );
 				loader.load( 'model/portalgun.3ds', function ( object ) {
 
 					object.traverse( function ( child ) {
@@ -145,28 +145,18 @@
 				} );
 			}
 
-			function loadEarth(){
+			function loadLunar(){
 				//3ds files dont store normal maps
-				earth = new THREE.Object3D();
+				lunar = new THREE.Object3D();
 				var loader = new THREE.TDSLoader();
-				loader.setResourcePath( 'model/lunar-textures/' );
+				loader.setResourcePath( 'model/textures/lunar/' );
 				loader.load( 'model/lunar.3ds', function ( object ) {
-						earth = object;
-						earth.scale = 1;
-						scene.add(earth);
-						earth.position.set(0, 0, 0);
+						lunar = object;
+						lunar.scale = 1;
+						scene.add(lunar);
+						lunar.position.set(0, 0, 0);
 				} );
 			}
-
-			/*function loadEarth(){
-				var loader = new THREE.OBJLoader();
-				loader.load( 'model/plants.obj', function (object) {
-						earth = object;
-						scene.add(earth);
-						earth.position.set(0, 0, 0);
-					}
-				);
-			}*/
 
 			function resize() {
 
