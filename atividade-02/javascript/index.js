@@ -118,8 +118,7 @@ function keyboardControls(event){
     }
 }
 
-
-// Add lights to the scene and a point light to the camera
+//Add lights to the scene and a point light to the camera
 function addLights(scene, camera){
   let hemisphereLight = new THREE.HemisphereLight();
   let directionalLight = new THREE.DirectionalLight( 0xffeedd );
@@ -133,6 +132,7 @@ function addLights(scene, camera){
   camera.add( pointLight );
 }
 
+//Add the models to the scene, setting their position and scale
 function addModels(scene){
   moon.position.set(15,3,3);
 
