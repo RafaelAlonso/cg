@@ -1,10 +1,10 @@
 <!--
 ****	Computacao Grafica - Atividade Pratica 2 (A2)
-****    	Rafael Alonso   (RA 620084)
+****    Rafael Alonso   (RA 620084)
 ****		Washington Paes (RA 620190)
 **** 		William Alves 	(RA 620203)
 
- *** Code Source: threejs.org/examples/ ***
+*** Code Source: threejs.org/examples/ ***
 -->
 
 <!DOCTYPE html>
@@ -12,25 +12,7 @@
 	<head>
 		<title>Computacao Grafica - Atividade Pratica 2</title>
 		<meta charset="utf-8">
-		<style>
-			body {
-				font-family: Monospace;
-				background-color: #000;
-				color: #fff;
-				margin: 0px;
-				overflow: hidden;
-			}
-			#info {
-				color: #fff;
-				position: absolute;
-				top: 10px;
-				width: 100%;
-				text-align: center;
-				z-index: 100;
-				display:block;
-			}
-			#info a, .button { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
-		</style>
+		<link rel="stylesheet" href="css/index.css">
 	</head>
 
 	<body>
@@ -41,177 +23,16 @@
 		</div>
 
 		<!-- ThreeJS Scripts-->
-		<script src="javascript/three.js"></script>
-		<script src="javascript/TrackballControls.js"></script>
-		<script src="javascript/TDSLoader.js"></script>
-		<script src="javascript/OBJLoader.js"></script>
-		<script src="javascript/MTLLoader.js"></script>
-		<script src="javascript/Detector.js"></script>
+		<script src="javascript/threejs/three.js"></script>
+		<script src="javascript/threejs/TrackballControls.js"></script>
+		<script src="javascript/threejs/TDSLoader.js"></script>
+		<script src="javascript/threejs/OBJLoader.js"></script>
+		<script src="javascript/threejs/MTLLoader.js"></script>
+		<script src="javascript/threejs/Detector.js"></script>
+    <script src="javascript/threejs/GLTFLoader.js"></script>
 
 		<!-- Program -->
-		<script>
-			//Variables
-			var container, controls;
-			var camera, scene, renderer;
-			//Containers
-			var portalgun
-			var lunar
-
-			if (Detector.webgl) {
-				//Create the scene
-				init();
-
-				//Loaders
-				loadPortalGun();
-				// loadLunar();
-
-				//Animate
-				animate();
-			} else {
-				// Error message for compatibility problems
-			    var warning = Detector.getWebGLErrorMessage();
-			    document.querySelector('.info').appendChild(warning);
-			}
-
-			//Create the scene
-			function init() {
-
-				container = document.createElement( 'div' );
-				document.body.appendChild( container );
-
-
-				//Cameras
-				cameraC = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 0.5, 200 );
-				cameraC.position.z = -25;
-				camera = cameraC;
-
-				//Camera Controls
-				controls = new THREE.TrackballControls( camera );
-
-				//Define a Scene
-				scene = new THREE.Scene();
-
-				//Lights
-				scene.add( new THREE.HemisphereLight() );
-				var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-				directionalLight.position.set( 0, 0, 2 );
-				scene.add( directionalLight );
-				var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
-				scene.add( ambientLight );
-				var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
-				camera.add( pointLight );
-
-				//Define a Renderer
-				renderer = new THREE.WebGLRenderer();
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild( renderer.domElement );
-
-				//var axis = new THREE.AxisHelper(10);
-				//scene.add(axis);
-
-				//Event listeners for interaction
-				window.addEventListener( 'resize', resize, false );
-				window.addEventListener( 'keydown', keyboardControls );
-			}
-
-			//Function to load the Portal Gun
-			function loadPortalGun(){
-				//3ds files dont store normal maps
-				var loader = new THREE.TextureLoader();
-				var normal = loader.load( 'model/textures/portalgun/normal.jpg' );
-				portalgun = new THREE.Object3D();
-				var loader = new THREE.TDSLoader();
-				loader.setResourcePath( 'model/textures/portalgun/' );
-				loader.load( 'model/portalgun.3ds', function ( object ) {
-
-					object.traverse( function ( child ) {
-
-						if ( child instanceof THREE.Mesh ) {
-
-							child.material.normalMap = normal;
-
-						}
-
-					} );
-
-					object.scale = 1;
-					object.x = 0.1;
-					object.y = 0.1;
-					object.z = 0.1;
-					scene.add( object );
-
-				portalgun = object;
-				} );
-			}
-
-			function loadLunar(){
-				//3ds files dont store normal maps
-				lunar = new THREE.Object3D();
-				var loader = new THREE.TDSLoader();
-				loader.setResourcePath( 'model/textures/lunar/' );
-				loader.load( 'model/lunar.3ds', function ( object ) {
-						lunar = object;
-						lunar.scale = 1;
-						scene.add(lunar);
-						lunar.position.set(0, 0, 0);
-				} );
-			}
-
-			function resize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-			}
-
-			//Recieve keyboard inputs to control the scene
-			function keyboardControls(event){
-					switch (event.keyCode){
-						case 37:
-							portalgun.rotation.z -=0.1;
-							break;
-						case 38:
-							portalgun.rotation.x -=0.1;
-							break;
-						case 39:
-							portalgun.rotation.z +=0.1;
-							break;
-						case 40:
-							portalgun.rotation.x +=0.1;
-							break;
-
-						//Pressing 'A' for camera position '1'
-						case 65:
-							camera.position.set(0, 5, 20);
-							break;
-						//Pressing 'B' for camera position '2'
-						case 66:
-							camera.position.set(20, 15, 200);
-							break;
-						//Pressing 'C' the default camera position
-						case 67:
-							camera.position.set(0, 0, -25);
-							break;
-						//Pressing 'D' for camera position '4'
-						case 68:
-							camera.position.set(0, 100, 0);
-							break;
-					}
-			}
-
-			function animate() {
-
-				controls.update();
-				//Render the scene
-				renderer.render( scene, camera );
-
-				requestAnimationFrame( animate );
-
-			}
-		</script>
-
+    <script src="javascript/loadModel.js"></script>
+		<script src="javascript/index.js"></script>
 	</body>
 </html>
