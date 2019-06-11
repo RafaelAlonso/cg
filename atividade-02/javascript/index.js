@@ -33,7 +33,7 @@ function init() {
   camera.position.z = -50;
 
   //Camera Controls
-  controls = new THREE.TrackballControls( camera );
+  // controls = new THREE.TrackballControls( camera );
 
   //Define a Scene
   scene = new THREE.Scene();
@@ -51,8 +51,9 @@ function init() {
   addModels(scene);
 
   //Axis
-  // var axis = new THREE.AxisHelper(10);
-  // scene.add(axis);
+  controls = new THREE.OrbitControls( camera, renderer.domElement );
+  var axis = new THREE.AxisHelper(10);
+  scene.add(axis);
 
   //Event listeners for interaction
   window.addEventListener( 'resize', resize, false );
@@ -102,10 +103,12 @@ function keyboardControls(event){
       //Pressing 'A' for camera position '1'
       case 65:
         camera.position.set(0, 0, -50);
+        controls.target.set( 0, 0, 0 );
         break;
       //Pressing 'B' for camera position '2'
       case 66:
-        camera.position.set(50, 2, 2);
+        // camera.position.set(50, 2, 2);
+        controls.target.set( 15, 2.5, 3 );
         break;
       //Pressing 'C' the default camera position
       case 67:
