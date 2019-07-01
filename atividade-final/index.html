@@ -16,7 +16,7 @@
 	var onRenderFcts= [];
 	var scene	= new THREE.Scene();
 	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
-	camera.position.z = 20;
+	camera.position.z = 40;
 
 	var light	= new THREE.AmbientLight( 0x222222 )
 	scene.add( light )
@@ -294,9 +294,210 @@
 		var angle	= 0.03 * now * Math.PI * 2;
 		position.x	= 9 * Math.cos(angle);
 		position.y	= 9 * Math.cos(angle+Math.PI/2);
-		position.z	= 9 * Math.sin(angle);
+		position.z	= 8.5 * Math.sin(angle);
 	})
 
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Jupiter				//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	var containerJupiter	= new THREE.Object3D()
+	containerJupiter.rotateZ(23.4 * Math.PI/180)
+	containerJupiter.position.z	= -25
+	scene.add(containerJupiter)
+
+	var jupiterMesh	= THREEx.Planets.createJupiter()
+	jupiterMesh.receiveShadow	= true
+	jupiterMesh.castShadow	= true
+	jupiterMesh.scale.multiplyScalar(1.9);
+	containerJupiter.add(jupiterMesh)
+	onRenderFcts.push(function(delta, now){
+		jupiterMesh.rotation.y += 1/32 * delta;		
+	})
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.uniforms.glowColor.value.set(0xff6800)
+	material.uniforms.coeficient.value	= 0.8
+	material.uniforms.power.value		= 2.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(2);
+	containerJupiter.add( mesh );
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.side	= THREE.BackSide
+	material.uniforms.glowColor.value.set(0xffb400)
+	material.uniforms.coeficient.value	= 0.17
+	material.uniforms.power.value		= 4.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(2);
+	containerJupiter.add( mesh );
+
+	onRenderFcts.push(function(delta, now){
+		var position	= containerJupiter.position
+		// handle planet revolution
+		var angle	= 0.03 * now * Math.PI * 2;
+		position.x	= 15 * Math.cos(angle);
+		position.y	= 16 * Math.cos(angle+Math.PI/2);
+		position.z	= 16 * Math.sin(angle);
+	})
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Saturn					//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	var containerSaturn	= new THREE.Object3D()
+	containerSaturn.rotateZ(-23.4 * Math.PI/180)
+	containerSaturn.position.z	= -33
+	scene.add(containerSaturn)
+
+	var saturnMesh	= THREEx.Planets.createSaturn()
+	saturnMesh.receiveShadow	= true
+	saturnMesh.castShadow	= true
+	saturnMesh.scale.multiplyScalar(1.7);
+	containerSaturn.add(saturnMesh)
+	onRenderFcts.push(function(delta, now){
+		saturnMesh.rotation.y += 1/32 * delta;		
+	})
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.uniforms.glowColor.value.set(0x00b3ff)
+	material.uniforms.coeficient.value	= 0.8
+	material.uniforms.power.value		= 2.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(2);
+	containerSaturn.add( mesh );
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.side	= THREE.BackSide
+	material.uniforms.glowColor.value.set(0x00b3ff)
+	material.uniforms.coeficient.value	= 0.5
+	material.uniforms.power.value		= 4.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(2.2);
+	containerSaturn.add( mesh );
+
+	var saturnRing	= THREEx.Planets.createSaturnRing()
+	saturnRing.receiveShadow	= true
+	saturnRing.castShadow	= true
+	saturnRing.scale.multiplyScalar(2.5);
+	containerSaturn.add(saturnRing)
+	onRenderFcts.push(function(delta, now){
+		saturnRing.rotation.y += 1/8 * delta;		
+	})
+
+	onRenderFcts.push(function(delta, now){
+		var position	= containerSaturn.position
+		// handle planet revolution
+		var angle	= 0.01 * now * Math.PI * 2;
+		position.x	= 17.8 * Math.cos(angle);
+		position.y	= 18.0 * Math.cos(angle+Math.PI/2);
+		position.z	= 16.0 * Math.sin(angle);
+	})
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Uranus					//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	var containerUranus	= new THREE.Object3D()
+	containerUranus.rotateZ(-23.4 * Math.PI/180)
+	containerUranus.position.z	= -50
+	scene.add(containerUranus)
+
+	var uranusMesh	= THREEx.Planets.createUranus()
+	uranusMesh.receiveShadow	= true
+	uranusMesh.castShadow	= true
+	uranusMesh.scale.multiplyScalar(1.5);
+	containerUranus.add(uranusMesh)
+	onRenderFcts.push(function(delta, now){
+		uranusMesh.rotation.y += 1/32 * delta;		
+	})
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.uniforms.glowColor.value.set(0x00b3ff)
+	material.uniforms.coeficient.value	= 0.8
+	material.uniforms.power.value		= 2.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(1.8);
+	containerUranus.add( mesh );
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.side	= THREE.BackSide
+	material.uniforms.glowColor.value.set(0x00b3ff)
+	material.uniforms.coeficient.value	= 0.5
+	material.uniforms.power.value		= 4.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(2);
+	containerUranus.add( mesh );
+
+	var uranusRing	= THREEx.Planets.createUranusRing()
+	uranusRing.receiveShadow	= true
+	uranusRing.castShadow	= true
+	uranusRing.scale.multiplyScalar(2.2);
+	containerUranus.add(uranusRing)
+	onRenderFcts.push(function(delta, now){
+		uranusRing.rotation.y += 1/8 * delta;		
+	})
+
+	onRenderFcts.push(function(delta, now){
+		var position	= containerUranus.position
+		// handle planet revolution
+		var angle	= 0.01 * now * Math.PI * 2;
+		position.x	= 21.5 * Math.cos(angle);
+		position.y	= 21.5 * Math.cos(angle+Math.PI/2);
+		position.z	= 21.5 * Math.sin(angle);
+	})
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Neptune				//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	var containerNeptune	= new THREE.Object3D()
+	containerNeptune.rotateZ(23.4 * Math.PI/180)
+	containerNeptune.position.z	= -60
+	scene.add(containerNeptune)
+
+	var neptuneMesh	= THREEx.Planets.createNeptune()
+	neptuneMesh.receiveShadow	= true
+	neptuneMesh.castShadow	= true
+	neptuneMesh.scale.multiplyScalar(1.5);
+	containerNeptune.add(neptuneMesh)
+	onRenderFcts.push(function(delta, now){
+		jupiterMesh.rotation.y += 1/32 * delta;		
+	})
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.uniforms.glowColor.value.set(0xff6800)
+	material.uniforms.coeficient.value	= 0.8
+	material.uniforms.power.value		= 2.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(1.7);
+	containerNeptune.add( mesh );
+
+	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
+	var material	= THREEx.createAtmosphereMaterial()
+	material.side	= THREE.BackSide
+	material.uniforms.glowColor.value.set(0xffb400)
+	material.uniforms.coeficient.value	= 0.17
+	material.uniforms.power.value		= 4.0
+	var mesh	= new THREE.Mesh(geometry, material );
+	mesh.scale.multiplyScalar(1.9);
+	containerNeptune.add( mesh );
+
+	onRenderFcts.push(function(delta, now){
+		var position	= containerNeptune.position
+		// handle planet revolution
+		var angle	= 0.008 * now * Math.PI * 2;
+		position.x	= 25 * Math.cos(angle);
+		position.y	= 26 * Math.cos(angle+Math.PI/2);
+		position.z	= 26 * Math.sin(angle);
+	})
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Camera Controls							//
