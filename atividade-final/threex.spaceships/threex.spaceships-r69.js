@@ -2,7 +2,7 @@ var THREEx	= THREEx	|| {}
 
 THREEx.SpaceShips		= {}
 
-THREEx.SpaceShips.baseUrl	= '../'
+THREEx.SpaceShips.baseUrl	= 'threex.spaceships/'
 
 THREEx.SpaceShips.loadSpaceFighter01	= function(onLoad){
 	var loader	= new THREE.OBJMTLLoader();
