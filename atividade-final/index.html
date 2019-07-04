@@ -35,11 +35,20 @@
 	document.body.appendChild( renderer.domElement );
 	renderer.shadowMapEnabled	= true
 	
+	var camera, cameraDefault, cameraEarth, cameraSpaceShip;
+
 	var onRenderFcts= [];
 	var scene	= new THREE.Scene();
-	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
-	camera.position.z = -18;
+	
+	cameraDefault	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
+	cameraDefault.position.z = -18;
 
+	camera = cameraDefault;
+
+	cameraEarth	= new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000 );
+	cameraEarth.position.z = -35;
+
+	//var keyboard = new THREEx.KeyboardState();
 	var light	= new THREE.AmbientLight( 0x222222 )
 	scene.add( light )
 
@@ -84,6 +93,7 @@
 		scene.add(object3d)		
 	})()
 	
+
 	//////////////////////////////////////////////////////////////////////////////////
 	//		added starfield							//
 	//////////////////////////////////////////////////////////////////////////////////
@@ -589,6 +599,14 @@
 	      case 40:
 	        camera.position.y -=1;
 	        break;
+	      case 32:
+	      	camera = cameraEarth;
+	      	camera.updateProjectionMatrix();
+	      	break;
+	      case 49:
+	      	camera = cameraDefault;
+	      	camera.updateProjectionMatrix();
+	      	break;		
 	    }
 	}
 
