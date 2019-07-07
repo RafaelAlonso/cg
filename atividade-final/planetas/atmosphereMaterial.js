@@ -1,10 +1,4 @@
-var THREEx = THREEx || {}
-
-/**
- * from http://stemkoski.blogspot.fr/2013/07/shaders-in-threejs-glow-and-halo.html
- * @return {[type]} [description]
- */
-THREEx.createAtmosphereMaterial	= function(){
+createAtmosphereMaterial	= function(){
 	var vertexShader	= [
 		'varying vec3	vVertexWorldPosition;',
 		'varying vec3	vVertexNormal;',
