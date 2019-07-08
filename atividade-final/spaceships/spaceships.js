@@ -1,10 +1,4 @@
-var THREEx	= THREEx	|| {}
-
-THREEx.SpaceShips		= {}
-
-THREEx.SpaceShips.baseUrl	= 'threex.spaceships/'
-
-THREEx.SpaceShips._loadObjMtl = function(loaderPath, objBasename, mtlBasename, onLoad, onProgress, onError){
+loadObjMtl = function(loaderPath, objBasename, mtlBasename, onLoad, onProgress, onError){
 	var mtlLoader = new THREE.MTLLoader();
 	mtlLoader.setPath( loaderPath );
 	mtlLoader.load( mtlBasename, function( materials ) {
@@ -19,9 +13,9 @@ THREEx.SpaceShips._loadObjMtl = function(loaderPath, objBasename, mtlBasename, o
 	});	
 }
 
-THREEx.SpaceShips.loadSpaceFighter01	= function(onLoad, onProgress, onError){
-	var loaderPath = THREEx.SpaceShips.baseUrl  + 'models/SpaceFighter01/'
-	THREEx.SpaceShips._loadObjMtl(loaderPath, 'SpaceFighter01.obj', 'SpaceFighter01.mtl', function(object3d){
+loadSpaceFighter01	= function(onLoad, onProgress, onError){
+	var loaderPath = 'spaceships/models/SpaceFighter01/'
+	loadObjMtl(loaderPath, 'SpaceFighter01.obj', 'SpaceFighter01.mtl', function(object3d){
 		// set the scale
 		object3d.scale.multiplyScalar(1/300)
 		// change emissive color of all object3d material - they are too dark
@@ -35,9 +29,9 @@ THREEx.SpaceShips.loadSpaceFighter01	= function(onLoad, onProgress, onError){
 	}, onProgress, onError)
 }
 
-THREEx.SpaceShips.loadSpaceFighter02	= function(onLoad, onProgress, onError){
-	var loaderPath = THREEx.SpaceShips.baseUrl  + 'models/SpaceFighter02/'
-	THREEx.SpaceShips._loadObjMtl(loaderPath, 'SpaceFighter02.obj', 'SpaceFighter02.mtl', function(object3d){
+loadSpaceFighter02	= function(onLoad, onProgress, onError){
+	var loaderPath = 'spaceships/models/SpaceFighter02/'
+	loadObjMtl(loaderPath, 'SpaceFighter02.obj', 'SpaceFighter02.mtl', function(object3d){
 		// set the scale
 		object3d.scale.multiplyScalar(1/200)
 		// change emissive color of all object3d material - they are too dark
@@ -56,9 +50,9 @@ THREEx.SpaceShips.loadSpaceFighter02	= function(onLoad, onProgress, onError){
 }
 
 
-THREEx.SpaceShips.loadSpaceFighter03	= function(onLoad, onProgress, onError){
-	var loaderPath = THREEx.SpaceShips.baseUrl  + 'models/SpaceFighter03/'
-	THREEx.SpaceShips._loadObjMtl(loaderPath, 'SpaceFighter03.obj', 'SpaceFighter03.mtl', function(object3d){
+loadSpaceFighter03	= function(onLoad, onProgress, onError){
+	var loaderPath = 'spaceships/models/SpaceFighter03/'
+	loadObjMtl(loaderPath, 'SpaceFighter03.obj', 'SpaceFighter03.mtl', function(object3d){
 		// set the scale
 		object3d.scale.multiplyScalar(1/10)
 		// change emissive color of all object3d material - they are too dark
@@ -76,9 +70,9 @@ THREEx.SpaceShips.loadSpaceFighter03	= function(onLoad, onProgress, onError){
 	}, onProgress, onError)
 }
 
-THREEx.SpaceShips.loadShuttle01	= function(onLoad, onProgress, onError){
-	var loaderPath = THREEx.SpaceShips.baseUrl  + 'models/Shuttle01/'
-	THREEx.SpaceShips._loadObjMtl(loaderPath, 'Shuttle01.obj', 'Shuttle01.mtl', function(object3d){
+loadShuttle01	= function(onLoad, onProgress, onError){
+	var loaderPath = 'spaceships/models/Shuttle01/'
+	loadObjMtl(loaderPath, 'Shuttle01.obj', 'Shuttle01.mtl', function(object3d){
 		// set the scale
 		object3d.scale.multiplyScalar(1/400)
 		// change emissive color of all object3d material - they are too dark
@@ -96,9 +90,9 @@ THREEx.SpaceShips.loadShuttle01	= function(onLoad, onProgress, onError){
 	}, onProgress, onError)
 }
 
-THREEx.SpaceShips.loadShuttle02	= function(onLoad, onProgress, onError){
-	var loaderPath = THREEx.SpaceShips.baseUrl  + 'models/Shuttle02/'
-	THREEx.SpaceShips._loadObjMtl(loaderPath, 'Shuttle02.obj', 'Shuttle02.mtl', function(object3d){
+loadShuttle02	= function(onLoad, onProgress, onError){
+	var loaderPath = 'spaceships/models/Shuttle02/'
+	loadObjMtl(loaderPath, 'Shuttle02.obj', 'Shuttle02.mtl', function(object3d){
 		// set the scale
 		object3d.scale.multiplyScalar(1/400)
 		// change emissive color of all object3d material - they are too dark
@@ -117,10 +111,8 @@ THREEx.SpaceShips.loadShuttle02	= function(onLoad, onProgress, onError){
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-//		comment								//
-//////////////////////////////////////////////////////////////////////////////////
 
-THREEx.SpaceShips.Shoot	= function(){
+Shoot	= function(){
 	// your code goes here
 	var canvas	= generateShootCanvas();
 	var texture	= new THREE.Texture( canvas );
@@ -177,9 +169,8 @@ THREEx.SpaceShips.Shoot	= function(){
 /**
  * create a detonation effect. 
  */
-THREEx.SpaceShips.Detonation	= function(){
-	var baseUrl	= THREEx.SpaceShips.baseUrl 
-	var url		= baseUrl + 'images/lensflare0_alpha.png';
+Detonation	= function(){
+	var url		= 'spaceships/images/lensflare0_alpha.png';
 	var texture	= THREE.ImageUtils.loadTexture(url);
 	// do the material	
 	var geometry	= new THREE.PlaneGeometry(1,1)
