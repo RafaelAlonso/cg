@@ -1,269 +1,311 @@
 <!DOCTYPE html>
 
-<!-- ThreeJS Scripts -->
-<script src='threeJS/three.min.js'></script>
-<script src='threeJS/TrackballControls.js'></script>
-<script src='threeJS/Detector.js'></script>
-<script src='threeJS/OrbitControls.js'></script>
-<script src='threeJS/three.js'></script>
-<script src='threeJS/OBJLoader.js'></script>
-<script src='threeJS/MTLLoader.js'></script>
+  <!-- SCRIPTS TO LOAD -->
 
-<!-- Sun and Planets material (FragementShader and VertexShader inside) -->
-<script src='planetas/atmospherematerial.js'></script>
+    <!-- ThreeJS Scripts -->
+    <script src='threeJS/three.min.js'></script>
+    <script src='threeJS/TrackballControls.js'></script>
+    <script src='threeJS/Detector.js'></script>
+    <script src='threeJS/OrbitControls.js'></script>
+    <script src='threeJS/three.js'></script>
+    <script src='threeJS/OBJLoader.js'></script>
+    <script src='threeJS/MTLLoader.js'></script>
 
-<!-- Sun and Planets -->
-<script src='planetas/sun.js'></script>
-<script src='planetas/mercury.js'></script>
-<script src='planetas/venus.js'></script>
-<script src='planetas/earthAndMoon.js'></script>
-<script src='planetas/mars.js'></script>
-<script src='planetas/jupiter.js'></script>
+    <!-- Sun and Planets material (FragementShader and VertexShader inside) -->
+    <script src='planetas/atmospherematerial.js'></script>
 
-<!-- SpaceShips -->
-<script src='spaceships/spaceships.js'></script>
+    <!-- Sun and Planets -->
+    <script src='planetas/sun.js'></script>
+    <script src='planetas/mercury.js'></script>
+    <script src='planetas/venus.js'></script>
+    <script src='planetas/earthAndMoon.js'></script>
+    <script src='planetas/mars.js'></script>
+    <script src='planetas/jupiter.js'></script>
+
+    <!-- SpaceShips -->
+    <script src='spaceships/spaceships.js'></script>
 
 
-<body style='margin: 0px; background-color: #000000; overflow: hidden;'>
+  <!-- BODY -->
 
-	<script>
-	var renderer	= new THREE.WebGLRenderer({
-		antialias	: true
-	});
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	document.body.appendChild( renderer.domElement );
-	renderer.shadowMapEnabled	= true
-	
-	var camera, cameraDefault, cameraEarth, cameraSpaceShip;
+    <body style='margin: 0px; background-color: #000000; overflow: hidden;'>
 
-	var onRenderFcts= [];
-	var scene	= new THREE.Scene();
-	
-	cameraDefault	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
-	cameraDefault.position.z = -18;
+      <script>
+        // Variable declaration
+        var camera, cameraDefault, cameraEarth, cameraSpaceShip;
+        var onRenderFcts= [];
+        var scene = new THREE.Scene();
 
-	cameraEarth	= new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000 );
-	cameraEarth.position.z = -35;
+        ////////////////////////////////////////////////////////////////////////
+        //    RENDERER    //
+        ////////////////////////////////////////////////////////////////////////
+          // create renderer and append it to the body
+        	var renderer	= new THREE.WebGLRenderer({ antialias: true });
+        	renderer.setSize( window.innerWidth, window.innerHeight );
+        	document.body.appendChild( renderer.domElement );
+        	renderer.shadowMapEnabled	= true
 
-	camera = cameraEarth;
+        ////////////////////////////////////////////////////////////////////////
+        //    CAMERAS    //
+        ////////////////////////////////////////////////////////////////////////
+          // create default camera
+        	cameraDefault	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
+        	cameraDefault.position.z = -18;
 
-	//var keyboard = new THREEx.KeyboardState();
-	var light	= new THREE.AmbientLight( 0x222222 )
-	scene.add( light )
+          // create earth camera
+        	cameraEarth	= new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000 );
+        	cameraEarth.position.z = -35;
 
-	var light	= new THREE.DirectionalLight( 0xffffff, 1 )
-	light.position.set(5,5,5)
-	scene.add( light )
-	light.castShadow	= true
-	light.shadowCameraNear	= 0.01
-	light.shadowCameraFar	= 15
-	light.shadowCameraFov	= 45
+          // set the active camera
+        	camera = cameraEarth;
 
-	light.shadowCameraLeft	= -1
-	light.shadowCameraRight	=  1
-	light.shadowCameraTop	=  1
-	light.shadowCameraBottom= -1
-	//light.shadowCameraVisible	= true
+        ////////////////////////////////////////////////////////////////////////
+        //    LIGHTS    //
+        ////////////////////////////////////////////////////////////////////////
+        	var light	= new THREE.AmbientLight( 0x222222 )
+        	scene.add( light )
 
-	light.shadowBias	= 0.001
-	light.shadowDarkness	= 0.2
+        	var light	= new THREE.DirectionalLight( 0xffffff, 1 )
+        	light.position.set(5,5,5)
+        	scene.add( light )
+        	light.castShadow	= true
+        	light.shadowCameraNear	= 0.01
+        	light.shadowCameraFar	= 15
+        	light.shadowCameraFov	= 45
 
-	light.shadowMapWidth	= 1024
-	light.shadowMapHeight	= 1024
+        	light.shadowCameraLeft	= -1
+        	light.shadowCameraRight	=  1
+        	light.shadowCameraTop	=  1
+        	light.shadowCameraBottom= -1
+        	//light.shadowCameraVisible	= true
 
-	var object3d	= new THREE.AmbientLight(0x101010*8)
-	object3d.name	= 'Ambient light'
-	scene.add(object3d)
+        	light.shadowBias	= 0.001
+        	light.shadowDarkness	= 0.2
 
-	var object3d	= new THREE.DirectionalLight('white', 0.225)
-	object3d.position.set(2.6,1,3)
-	object3d.name	= 'Back light'
-	scene.add(object3d)
+        	light.shadowMapWidth	= 1024
+        	light.shadowMapHeight	= 1024
 
-	var object3d	= new THREE.DirectionalLight('white', 0.375)
-	object3d.position.set(-2, -1, 0)
-	object3d.name 	= 'Key light'
-	scene.add(object3d)
+        	var object3d	= new THREE.AmbientLight(0x101010*8)
+        	object3d.name	= 'Ambient light'
+        	scene.add(object3d)
 
-	var object3d	= new THREE.DirectionalLight('white', 0.5*1)
-	object3d.position.set(3, 3, 2)
-	object3d.name	= 'Fill light'
-	scene.add(object3d)		
+        	var object3d	= new THREE.DirectionalLight('white', 0.225)
+        	object3d.position.set(2.6,1,3)
+        	object3d.name	= 'Back light'
+        	scene.add(object3d)
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Models						//
-	//////////////////////////////////////////////////////////////////////////////////
+        	var object3d	= new THREE.DirectionalLight('white', 0.375)
+        	object3d.position.set(-2, -1, 0)
+        	object3d.name 	= 'Key light'
+        	scene.add(object3d)
 
-	///////// StarField //////////
-	createStarfield	= function(){
-		var texture	= THREE.ImageUtils.loadTexture('planetas/images/galaxy_starfield.png')
-		var material	= new THREE.MeshBasicMaterial({
-			map	: texture,
-			side	: THREE.BackSide
-		})
-		var geometry	= new THREE.SphereGeometry(100, 32, 32)
-		var mesh	= new THREE.Mesh(geometry, material)
-		return mesh	
-	}
-	var starSphere	= createStarfield()
-	scene.add(starSphere)
+        	var object3d	= new THREE.DirectionalLight('white', 0.5*1)
+        	object3d.position.set(3, 3, 2)
+        	object3d.name	= 'Fill light'
+        	scene.add(object3d)
 
-	///////// Sun //////////
-	var containerSun	= sun(createAtmosphereMaterial())
-	containerSun.rotateZ(-23.4 * Math.PI/180)
-	containerSun.position.z	= 0
-	scene.add(containerSun)
+      	////////////////////////////////////////////////////////////////////////
+      	//    MODELS    //
+      	////////////////////////////////////////////////////////////////////////
 
-	///////// Mercury //////////
-	var containerMercury = mercury(createAtmosphereMaterial())
-	containerMercury.rotateZ(-50 * Math.PI/180)
-	containerMercury.position.z	= -20
-	scene.add(containerMercury)
-	onRenderFcts.push(function(delta, now){
-		var position	= containerMercury.position
-		// handle planet translation
-		var angle	= 0.3 * now * Math.PI * 2;
-		position.x	= 12.6 * Math.cos(angle);
-		position.y	= 12.7 * Math.cos(angle+Math.PI/2);
-		position.z	= 11.9 * Math.sin(angle);
-	})
+        	///////// StarField //////////
+            // function to create the starfield
+          	createStarfield	= function(){
+          		var texture	= THREE.ImageUtils.loadTexture('planetas/images/galaxy_starfield.png');
+          		var material	= new THREE.MeshBasicMaterial({
+          			map	: texture,
+          			side	: THREE.BackSide
+          		});
+          		var geometry	= new THREE.SphereGeometry(100, 32, 32);
+          		var mesh	= new THREE.Mesh(geometry, material);
+          		return mesh;
+          	}
 
-	///////// Venus //////////
-	var containerVenus	= venus(createAtmosphereMaterial())
-	containerVenus.rotateZ(-23.4 * Math.PI/180)
-	containerVenus.position.z	= -24
-	scene.add(containerVenus)
-	onRenderFcts.push(function(delta, now){
-		var position	= containerVenus.position
-		// handle planet translation
-		var angle	= 0.15 * now * Math.PI * 2;
-		position.x	= 15.1 * Math.cos(angle);
-		position.y	= 15.5 * Math.cos(angle+Math.PI/2);
-		position.z	= 13.0 * Math.sin(angle);
-	})
+            // the actual starfield
+          	var starSphere	= createStarfield();
 
-	///////// Earth and Moon //////////
-	var containerEarth	= earthAndMoon(createAtmosphereMaterial())
-	containerEarth.rotateZ(-23.4 * Math.PI/180)
-	containerEarth.position.z	= -30
-	scene.add(containerEarth)
+            // Add the starfield to the scene
+          	scene.add(starSphere)
 
-	///////// Mars //////////
-	var containerMars	= mars(createAtmosphereMaterial())
-	containerMars.rotateZ(23.4 * Math.PI/180)
-	containerMars.position.z	= -35
-	scene.add(containerMars)
-	onRenderFcts.push(function(delta, now){
-		var position	= containerMars.position
-		// handle planet translation
-		var angle	= 0.03 * now * Math.PI * 2;
-		position.x	= 19 * Math.cos(angle);
-		position.y	= 19 * Math.cos(angle+Math.PI/2);
-		position.z	= 18.5 * Math.sin(angle);
-	})
+        	///////// Sun //////////
+            // create the Sun
+          	var containerSun	= sun(createAtmosphereMaterial());
+          	containerSun.position.z	= 0;
 
-	///////// Jupiter //////////
-	var containerJupiter	= jupiter(createAtmosphereMaterial())
-	containerJupiter.rotateZ(23.4 * Math.PI/180)
-	containerJupiter.position.z	= -70
-	scene.add(containerJupiter)
-	onRenderFcts.push(function(delta, now){
-		var position	= containerJupiter.position
-		// handle planet translation
-		var angle	= 0.03 * now * Math.PI * 2;
-		position.x	= 30 * Math.cos(angle);
-		position.y	= 30 * Math.cos(angle+Math.PI/2);
-		position.z	= 30 * Math.sin(angle);
-	})
+            // Add the Z rotation to it and add it to the scene
+          	containerSun.rotateZ(-23.4 * Math.PI/180)
+          	scene.add(containerSun)
 
-	loadShuttle01(function(object3d){
-		object3d.position.x	= -1
-		object3d.position.y	= -0.5
-		object3d.position.z = -22
-		scene.add(object3d)
-	})
-		
-	loadSpaceFighter01(function(object3d){
-		object3d.position.x	=  1
-		object3d.position.y	= -0.5
-		object3d.position.z = -22
-		scene.add(object3d)
-	})
+        	///////// Mercury //////////
+            // create Mercury
+          	var containerMercury = mercury(createAtmosphereMaterial());
+          	containerMercury.position.z	= -20;
 
-	loadShuttle02(function(object3d){
-		object3d.position.x	=  3
-		object3d.position.y	= -0.5
-		object3d.position.z = -22
-		scene.add(object3d)
-	})
+            // Add the Z rotation to it and add it to the scene
+            containerMercury.rotateZ(-50 * Math.PI/180)
+          	scene.add(containerMercury)
 
- 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Camera Controls							//
-	//////////////////////////////////////////////////////////////////////////////////
-	var mouse	= {x : -10, y : -10}
-	document.addEventListener('mousemove', function(event){
-		mouse.x	= (event.clientX / window.innerWidth ) - 0.5
-		mouse.y	= (event.clientY / window.innerHeight) - 0.5
-	}, false)
-	onRenderFcts.push(function(delta, now){
-		camera.position.x += (mouse.x*5 - camera.position.x) * (delta*3)
-		camera.position.y += (mouse.y*5 - camera.position.y) * (delta*3)
-		camera.lookAt( scene.position )
-	})
+            // Translation around the sun
+            onRenderFcts.push(function(delta, now){
+          		var position	= containerMercury.position;
+          		var angle	= 0.3 * now * Math.PI * 2;
+          		position.x	= 12.6 * Math.cos(angle);
+          		position.y	= 12.7 * Math.cos(angle+Math.PI/2);
+          		position.z	= 11.9 * Math.sin(angle);
+          	})
 
-	//Recieve keyboard inputs to control the scene
-	document.addEventListener("keydown", onDocumentKeyDown, false);
-	function onDocumentKeyDown(event){
-	    switch (event.keyCode){
-	      //left arrow
-	      case 37:
-	        camera.position.z +=1;
-	        break;
-	      // up arrow
-	      case 38:
-	        camera.position.y +=1;
-	        break;
-	      // right arrow
-	      case 39:
-	        camera.position.z -=1;
-	        break;
-	      // down arrow
-	      case 40:
-	        camera.position.y -=1;
-	        break;
-	      case 32:
-	      	camera = cameraEarth;
-	      	camera.updateProjectionMatrix();
-	      	break;
-	      case 49:
-	      	camera = cameraDefault;
-	      	camera.updateProjectionMatrix();
-	      	break;		
-	    }
-	}
+        	///////// Venus //////////
+            // create Venus
+          	var containerVenus	= venus(createAtmosphereMaterial());
+          	containerVenus.position.z	= -24
 
-	//////////////////////////////////////////////////////////////////////////////////
-	//		render the scene						//
-	//////////////////////////////////////////////////////////////////////////////////
-	onRenderFcts.push(function(){
-		renderer.render( scene, camera );		
-	})
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		loop runner							//
-	//////////////////////////////////////////////////////////////////////////////////
-	var lastTimeMsec= null
-	requestAnimationFrame(function animate(nowMsec){
-		// keep looping
-		requestAnimationFrame( animate );
-		// measure time
-		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
-		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
-		lastTimeMsec	= nowMsec
-		// call each update function
-		onRenderFcts.forEach(function(onRenderFct){
-			onRenderFct(deltaMsec/1000, nowMsec/1000)
-		})
-	})
-</script></body>
+            // Add the Z rotation to it and add it to the scene
+          	containerVenus.rotateZ(-23.4 * Math.PI/180)
+          	scene.add(containerVenus)
+
+            // Translation around the sun
+          	onRenderFcts.push(function(delta, now){
+          		var position	= containerVenus.position;
+          		var angle	= 0.15 * now * Math.PI * 2;
+          		position.x	= 15.1 * Math.cos(angle);
+          		position.y	= 15.5 * Math.cos(angle+Math.PI/2);
+          		position.z	= 13.0 * Math.sin(angle);
+          	})
+
+        	///////// Earth and Moon //////////
+            // Create earth and moon
+          	var containerEarth	= earthAndMoon(createAtmosphereMaterial());
+          	containerEarth.position.z	= -30
+
+            // Add the Z rotation to it and add it to the scene
+          	containerEarth.rotateZ(-23.4 * Math.PI/180)
+          	scene.add(containerEarth)
+
+        	///////// Mars //////////
+            // create Mars
+          	var containerMars	= mars(createAtmosphereMaterial());
+          	containerMars.position.z	= -35;
+
+            // Add the Z rotation to it and add it to the scene
+          	containerMars.rotateZ(23.4 * Math.PI/180);
+          	scene.add(containerMars);
+
+            // Translation around the sun
+          	onRenderFcts.push(function(delta, now){
+          		var position	= containerMars.position;
+          		var angle	= 0.03 * now * Math.PI * 2;
+          		position.x	= 19 * Math.cos(angle);
+          		position.y	= 19 * Math.cos(angle+Math.PI/2);
+          		position.z	= 18.5 * Math.sin(angle);
+          	})
+
+        	///////// Jupiter //////////
+            // create Jupiter
+          	var containerJupiter	= jupiter(createAtmosphereMaterial());
+          	containerJupiter.position.z	= -70;
+
+            // Add the Z rotation to it and add it to the scene
+            containerJupiter.rotateZ(23.4 * Math.PI/180);
+          	scene.add(containerJupiter);
+
+            // Translation around the sun
+          	onRenderFcts.push(function(delta, now){
+          		var position	= containerJupiter.position;
+          		var angle	= 0.03 * now * Math.PI * 2;
+          		position.x	= 30 * Math.cos(angle);
+          		position.y	= 30 * Math.cos(angle+Math.PI/2);
+          		position.z	= 30 * Math.sin(angle);
+          	})
+
+          ///////// Spaceships //////////
+          	loadShuttle01(function(object3d){
+          		object3d.position.x	= -1
+          		object3d.position.y	= -0.5
+          		object3d.position.z = -22
+          		scene.add(object3d)
+          	})
+
+          	loadSpaceFighter01(function(object3d){
+          		object3d.position.x	=  1
+          		object3d.position.y	= -0.5
+          		object3d.position.z = -22
+          		scene.add(object3d)
+          	})
+
+          	loadShuttle02(function(object3d){
+          		object3d.position.x	=  3
+          		object3d.position.y	= -0.5
+          		object3d.position.z = -22
+          		scene.add(object3d)
+          	})
+
+      	////////////////////////////////////////////////////////////////////////
+      	//		CAMERA CONTROLS  	 //
+      	////////////////////////////////////////////////////////////////////////
+        	var mouse	= {x : -10, y : -10}
+        	document.addEventListener('mousemove', function(event){
+        		mouse.x	= (event.clientX / window.innerWidth ) - 0.5
+        		mouse.y	= (event.clientY / window.innerHeight) - 0.5
+        	}, false)
+        	onRenderFcts.push(function(delta, now){
+        		camera.position.x += (mouse.x*5 - camera.position.x) * (delta*3)
+        		camera.position.y += (mouse.y*5 - camera.position.y) * (delta*3)
+        		camera.lookAt( scene.position )
+        	})
+
+        	//Recieve keyboard inputs to control the scene
+        	document.addEventListener("keydown", onDocumentKeyDown, false);
+        	function onDocumentKeyDown(event){
+        	    switch (event.keyCode){
+        	      //left arrow
+        	      case 37:
+        	        camera.position.z +=1;
+        	        break;
+        	      // up arrow
+        	      case 38:
+        	        camera.position.y +=1;
+        	        break;
+        	      // right arrow
+        	      case 39:
+        	        camera.position.z -=1;
+        	        break;
+        	      // down arrow
+        	      case 40:
+        	        camera.position.y -=1;
+        	        break;
+        	      case 32:
+        	      	camera = cameraEarth;
+        	      	camera.updateProjectionMatrix();
+        	      	break;
+        	      case 49:
+        	      	camera = cameraDefault;
+        	      	camera.updateProjectionMatrix();
+        	      	break;
+        	    }
+        	}
+
+      	////////////////////////////////////////////////////////////////////////
+      	//		RENDER THE SCENE 		//
+      	////////////////////////////////////////////////////////////////////////
+        	onRenderFcts.push(function(){
+        		renderer.render( scene, camera );
+        	})
+
+      	////////////////////////////////////////////////////////////////////////
+      	//		MAIN LOOP		//
+      	////////////////////////////////////////////////////////////////////////
+        	var lastTimeMsec= null
+        	requestAnimationFrame(function animate(nowMsec){
+        		// keep looping
+        		requestAnimationFrame( animate );
+        		// measure time
+        		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
+        		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
+        		lastTimeMsec	= nowMsec
+        		// call each update function
+        		onRenderFcts.forEach(function(onRenderFct){
+        			onRenderFct(deltaMsec/1000, nowMsec/1000)
+        		})
+        	})
+      </script>
+    </body>
