@@ -25,8 +25,23 @@ Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados ape
 - Matriz de Transformação do modelo (uma diferente para cada modelo);
 - Matriz de Visualização (uma para toda a a cena).
 - Duas posições distintas de câmeras
-### Atividade 03:
--
+### Atividade Final:
+-Requisitos básicos:
+- Contendo pelo menos:
+- Dois objetos carregados de arquivos
+- Cinco objetos no total
+- Dois movimentos distintos
+- Uma curva de bézier
+- Textura em algum modelo obj
+- Textura em algum objeto simples
+- Shader próprio com cálculo de iluminação phong (em shader próprio)
+- Duas posições distintas de câmeras
+- Alguma iteração do usuário (teclado ou mouse)
+- Um objeto articulado (uso movimento relativo)
+
+Requisitos extras:
+- Detecção de colisão;
+- Mais objetos, texturas, shaders, cameras, etc ...
 #
 
 ### Setup
