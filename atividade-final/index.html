@@ -83,8 +83,8 @@
         	cameraDefault.position.z = -18;
 
           // create earth camera
-        	cameraEarth	= new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000 );
-        	cameraEarth.position.z = -35;
+        	cameraEarth	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000 );
+        	cameraEarth.position.z = 35;
 
           // set the active camera
         	camera = cameraEarth;
@@ -133,6 +133,55 @@
         	object3d.position.set(3, 3, 2)
         	object3d.name	= 'Fill light'
         	scene.add(object3d)
+
+        ////////////////////////////////////////////////////////////////////////
+        //   BEZIER CURVES    //
+        ////////////////////////////////////////////////////////////////////////
+
+          var curves = [
+            //Curve 0
+            new THREE.CubicBezierCurve3(
+              new THREE.Vector3( 0, 0, -20 ),
+              new THREE.Vector3( 0, 20, -20 ),
+              new THREE.Vector3( 0, 20, 20 ),
+              new THREE.Vector3( 0, 0, 20 )
+            ),
+            //Curve 1
+            new THREE.CubicBezierCurve3(
+              new THREE.Vector3( -15, 0, 0 ),
+              new THREE.Vector3( -15, 20, 0 ),
+              new THREE.Vector3( 15, 20, 0 ),
+              new THREE.Vector3( 15, 0, 0 )
+            ),
+            //Curve 2
+            new THREE.CubicBezierCurve3(
+              new THREE.Vector3( -20, 0, 12 ),
+              new THREE.Vector3( -20, 15, 12 ),
+              new THREE.Vector3( 20, 15, -12 ),
+              new THREE.Vector3( 20, 0, -12 )
+            ),
+            //Curve 3
+            new THREE.CubicBezierCurve3(
+              new THREE.Vector3( 0, 0, 20 ),
+              new THREE.Vector3( 0, -20, 20 ),
+              new THREE.Vector3( 0, -20, -20 ),
+              new THREE.Vector3( 0, 0, -20 )
+            ),
+            //Curve 4
+            new THREE.CubicBezierCurve3(
+              new THREE.Vector3( 15, 0, 0 ),
+              new THREE.Vector3( 15, -20, 0 ),
+              new THREE.Vector3( -15, -20, 0 ),
+              new THREE.Vector3( -15, 0, 0 )
+            ),
+            //Curve 5
+            new THREE.CubicBezierCurve3(
+              new THREE.Vector3( 20, 0, -12 ),
+              new THREE.Vector3( 20, -15, -12 ),
+              new THREE.Vector3( -20, -15, -12 ),
+              new THREE.Vector3( -20, 0, -12 )
+            )
+          ]
 
       	////////////////////////////////////////////////////////////////////////
       	//    MODELS    //
@@ -248,26 +297,96 @@
           	})
 
           ///////// Spaceships //////////
-          	loadShuttle01(function(object3d){
-          		object3d.position.x	= -1
-          		object3d.position.y	= -0.5
-          		object3d.position.z = -22
-          		scene.add(object3d)
-          	})
+            // Ship One
+                  var containerShip1 = new THREE.Object3D()
+                  loadShuttle01(function(object3d){
+                    object3d.position.x = 0
+                    object3d.position.y = 0
+                    object3d.position.z = -10
+                    containerShip1.add(object3d)
+                  })
+                  var curve_counter1 = 0;
+            var curve_index1 = 0;
+                  scene.add(containerShip1)
+                  onRenderFcts.push(function(){
+              // Get point on the curves
+              var t = curves[curve_index1].getUtoTmapping(curve_counter1 / 1000);
+              // Set Ship3 position to next point on the curves
+              containerShip1.position.set(curves[curve_index1].getPointAt(t).x, curves[curve_index1].getPointAt(t).y, curves[curve_index1].getPointAt(t).z);      
+              
+                // Makes Ship3 look to the next point on the curve
+                containerShip3.lookAt(curves[curve_index1].getPointAt(curves[curve_index1].getUtoTmapping((curve_counter1+0.5) / 1000)));             
+                // Get next point on the curve
+                curve_counter1 += 0.5;
+                if (curve_counter1 == 1000) {
+                  curve_counter1 = 0;
+                  if(curve_index1 == 0)
+                    curve_index1 = 3;
+                  else
+                    curve_index1 = 0;
+                }
+                  })
 
-          	loadSpaceFighter01(function(object3d){
-          		object3d.position.x	=  1
-          		object3d.position.y	= -0.5
-          		object3d.position.z = -22
-          		scene.add(object3d)
-          	})
+                  // Ship Two
+                  var containerShip2 = new THREE.Object3D()
+                  loadSpaceFighter01(function(object3d){
+                    object3d.position.x =  -15
+                    object3d.position.y = 0
+                    object3d.position.z = 0
+                    containerShip2.add(object3d)
+                  })
+                  var curve_counter2 = 0;
+            var curve_index2 = 1;
+                  scene.add(containerShip2)
+                  onRenderFcts.push(function(){
+              // Get point on the curves
+              var t = curves[curve_index2].getUtoTmapping(curve_counter2 / 100);
+              // Set Ship3 position to next point on the curves
+              containerShip2.position.set(curves[curve_index2].getPointAt(t).x, curves[curve_index2].getPointAt(t).y, curves[curve_index2].getPointAt(t).z);      
+              
+                // Makes Ship3 look to the next point on the curve
+                containerShip2.lookAt(curves[curve_index2].getPointAt(curves[curve_index2].getUtoTmapping((curve_counter2+0.5) / 100)));              
+                // Get next point on the curve
+                curve_counter2 += 0.5;
+                if (curve_counter2 == 100) {
+                  curve_counter2 = 0;
+                  if(curve_index2 == 1)
+                    curve_index2 = 4;
+                  else
+                    curve_index2 = 1;
 
-          	loadShuttle02(function(object3d){
-          		object3d.position.x	=  3
-          		object3d.position.y	= -0.5
-          		object3d.position.z = -22
-          		scene.add(object3d)
-          	})
+                }
+                  })
+
+                  //Ship Three
+                  var containerShip3 = new THREE.Object3D()
+                  loadShuttle02(function(object3d){
+                    object3d.position.x =  -20
+                    object3d.position.y = 0
+                    object3d.position.z = 12
+                    containerShip3.add(object3d)
+                  })
+                  var curve_counter3 = 0;
+            var curve_index3 = 2;
+                  scene.add(containerShip3)
+                  onRenderFcts.push(function(){
+              // Get point on the curves
+              var t = curves[curve_index3].getUtoTmapping(curve_counter3 / 300);
+              // Set Ship3 position to next point on the curves
+              containerShip3.position.set(curves[curve_index3].getPointAt(t).x, curves[curve_index3].getPointAt(t).y, curves[curve_index3].getPointAt(t).z);      
+              
+                // Makes Ship3 look to the next point on the curve
+                containerShip3.lookAt(curves[curve_index3].getPointAt(curves[curve_index3].getUtoTmapping((curve_counter3+0.5) / 300)));              
+                // Get next point on the curve
+                curve_counter3 += 0.5;
+                if (curve_counter3 == 300) {
+                  curve_counter3 = 0;
+                  if(curve_index3 == 2)
+                    curve_index3 = 5;
+                  else
+                    curve_index3 = 2;
+                }
+                  })
 
       	////////////////////////////////////////////////////////////////////////
       	//		CAMERA CONTROLS  	 //
