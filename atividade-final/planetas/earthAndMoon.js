@@ -8,7 +8,7 @@ createEarth	= function(){
 		specular	: new THREE.Color('grey'),
 	})
 	var mesh	= new THREE.Mesh(geometry, material)
-	return mesh	
+	return mesh
 }
 
 createEarthCloud	= function(){
@@ -16,12 +16,12 @@ createEarthCloud	= function(){
 	var canvasResult	= document.createElement('canvas')
 	canvasResult.width	= 1024
 	canvasResult.height	= 512
-	var contextResult	= canvasResult.getContext('2d')		
+	var contextResult	= canvasResult.getContext('2d')
 
 	// load earthcloudmap
 	var imageMap	= new Image();
 	imageMap.addEventListener("load", function() {
-		
+
 		// create dataMap ImageData for earthcloudmap
 		var canvasMap	= document.createElement('canvas')
 		canvasMap.width	= imageMap.width
@@ -51,7 +51,7 @@ createEarthCloud	= function(){
 				}
 			}
 			// update texture with result
-			contextResult.putImageData(dataResult,0,0)	
+			contextResult.putImageData(dataResult,0,0)
 			material.map.needsUpdate = true;
 		})
 		imageTrans.src	= 'planetas/images/earthcloudmaptrans.jpg';
@@ -66,7 +66,7 @@ createEarthCloud	= function(){
 		opacity		: 0.8,
 	})
 	var mesh	= new THREE.Mesh(geometry, material)
-	return mesh	
+	return mesh
 }
 
 
@@ -78,13 +78,13 @@ createMoon	= function(){
 		bumpScale: 0.002,
 	})
 	var mesh	= new THREE.Mesh(geometry, material)
-	return mesh	
+	return mesh
 }
 
 
 earthAndMoon = function(atmosphereMaterial){
 	var containerEarth	= new THREE.Object3D()
-	
+
 	var moonMesh	= createMoon()
 	moonMesh.position.set(0.5,0.5,0.5)
 	moonMesh.scale.multiplyScalar(1/5)
@@ -97,9 +97,9 @@ earthAndMoon = function(atmosphereMaterial){
 	onRenderFcts.push(function(delta, now){
 		var angle	= now * Math.PI * 2 * 0.2
 		var position	= moonMesh.position
-		
+
 		moonMesh.rotation.y	= -angle
-		
+
 		position.x	= Math.cos(angle) * 0.7
 		position.y	= 0
 		position.z	= Math.sin(angle) * 0.7
@@ -110,7 +110,7 @@ earthAndMoon = function(atmosphereMaterial){
 	earthMesh.castShadow	= true
 	containerEarth.add(earthMesh)
 	onRenderFcts.push(function(delta, now){
-		earthMesh.rotation.y += 1/32 * delta;		
+		earthMesh.rotation.y += 1/32 * delta;
 	})
 
 	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
@@ -137,16 +137,7 @@ earthAndMoon = function(atmosphereMaterial){
 	earthCloud.castShadow	= true
 	containerEarth.add(earthCloud)
 	onRenderFcts.push(function(delta, now){
-		earthCloud.rotation.y += 1/8 * delta;		
-	})
-
-	onRenderFcts.push(function(delta, now){
-		var position	= containerEarth.position
-		// handle planet revolution
-		var angle	= 0.05 * now * Math.PI * 2;
-		position.x	= 17.8 * Math.cos(angle);
-		position.y	= 18.0 * Math.cos(angle+Math.PI/2);
-		position.z	= 16.0 * Math.sin(angle);
+		earthCloud.rotation.y += 1/8 * delta;
 	})
 
 	return containerEarth

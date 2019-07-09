@@ -227,7 +227,7 @@
             // Translation around the sun
             onRenderFcts.push(function(delta, now){
           		var position	= containerMercury.position;
-          		var angle	= 0.3 * now * Math.PI * 2;
+          		var angle	= 0.03 * now * Math.PI * 2;
           		position.x	= 12.6 * Math.cos(angle);
           		position.y	= 12.7 * Math.cos(angle+Math.PI/2);
           		position.z	= 11.9 * Math.sin(angle);
@@ -245,7 +245,7 @@
             // Translation around the sun
           	onRenderFcts.push(function(delta, now){
           		var position	= containerVenus.position;
-          		var angle	= 0.15 * now * Math.PI * 2;
+          		var angle	= 0.015 * now * Math.PI * 2;
           		position.x	= 15.1 * Math.cos(angle);
           		position.y	= 15.5 * Math.cos(angle+Math.PI/2);
           		position.z	= 13.0 * Math.sin(angle);
@@ -257,8 +257,18 @@
           	containerEarth.position.z	= -30
 
             // Add the Z rotation to it and add it to the scene
-          	containerEarth.rotateZ(-23.4 * Math.PI/180)
-          	scene.add(containerEarth)
+          	containerEarth.rotateZ(-23.4 * Math.PI/180);
+          	scene.add(containerEarth);
+
+            // Translation around the sun
+            onRenderFcts.push(function(delta, now){
+              var position  = containerEarth.position
+              // handle planet revolution
+              var angle = 0.005 * now * Math.PI * 2;
+              position.x  = 17.8 * Math.cos(angle);
+              position.y  = 18.0 * Math.cos(angle+Math.PI/2);
+              position.z  = 16.0 * Math.sin(angle);
+            })
 
         	///////// Mars //////////
             // create Mars
@@ -272,7 +282,7 @@
             // Translation around the sun
           	onRenderFcts.push(function(delta, now){
           		var position	= containerMars.position;
-          		var angle	= 0.03 * now * Math.PI * 2;
+          		var angle	= 0.003 * now * Math.PI * 2;
           		position.x	= 19 * Math.cos(angle);
           		position.y	= 19 * Math.cos(angle+Math.PI/2);
           		position.z	= 18.5 * Math.sin(angle);
@@ -290,7 +300,7 @@
             // Translation around the sun
           	onRenderFcts.push(function(delta, now){
           		var position	= containerJupiter.position;
-          		var angle	= 0.03 * now * Math.PI * 2;
+          		var angle	= 0.003 * now * Math.PI * 2;
           		position.x	= 30 * Math.cos(angle);
           		position.y	= 30 * Math.cos(angle+Math.PI/2);
           		position.z	= 30 * Math.sin(angle);
