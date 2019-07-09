@@ -25,6 +25,8 @@ Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados ape
 - Matriz de Transformação do modelo (uma diferente para cada modelo);
 - Matriz de Visualização (uma para toda a a cena).
 - Duas posições distintas de câmeras
+### Atividade 03:
+-
 #
 
 ### Setup
@@ -42,7 +44,7 @@ No linux recomenda-se usar o simple server do python:
 -Abra o diretório com o index no terminal e crie um servidor para poder acessar os arquivos localmente
 
 ```
-$python -m SimpleHTTPSserver
+$python -m SimpleHTTPServer
 ```
 
 Abra no navegador o endereço 'http://localhost:8000' para visualizar o projeto.
