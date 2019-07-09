@@ -10,7 +10,7 @@
 ### Informações
 Para o projeto, é utilizada a biblioteca ThreeJS e a linguagem JavaScript, além de HTML.
 
-Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados apenas para criar um servidor para rodar o projeto, podendo ser excluidos. O código das atividades encontram-se nas pastas `atividade-01` (mantido apenas para consulta) e `atividade-02` (o mais atualizado e o correto a ser utilizado nesse estágio do projeto).
+Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados apenas para criar um servidor para rodar o projeto, podendo ser excluidos. O código das atividades encontram-se nas pastas `atividade-01`, `atividade-02` e `atividade-01`, cada qual responsável por sua respectiva parte do projeto.
 #
 
 ### Atividade 01:
@@ -25,9 +25,9 @@ Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados ape
 - Matriz de Transformação do modelo (uma diferente para cada modelo);
 - Matriz de Visualização (uma para toda a a cena).
 - Duas posições distintas de câmeras
+
 ### Atividade Final:
--Requisitos básicos:
-- Contendo pelo menos:
+-Requisitos básicos (Contendo pelo menos):
 - Dois objetos carregados de arquivos
 - Cinco objetos no total
 - Dois movimentos distintos
@@ -56,7 +56,7 @@ e então abra no navegador o endereço 'http://localhost:8080' para visualizar o
 
 No linux recomenda-se usar o simple server do python:
 
--Abra o diretório com o index no terminal e crie um servidor para poder acessar os arquivos localmente
+Abra o diretório com o index no terminal e crie um servidor para poder acessar os arquivos localmente
 
 ```
 $python -m SimpleHTTPServer
