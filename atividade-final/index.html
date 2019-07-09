@@ -291,12 +291,12 @@
         	document.addEventListener("keydown", onDocumentKeyDown, false);
         	function onDocumentKeyDown(event){
         	    switch (event.keyCode){
-        	      case 32: // space bar
+        	      case 49: // 1
         	      	camera = cameraEarth;
         	      	camera.updateProjectionMatrix();
                   controls = new THREE.FlyControls( camera, renderer.domElement );
         	      	break;
-        	      case 49: // 1
+        	      case 50: // 2
         	      	camera = cameraDefault;
         	      	camera.updateProjectionMatrix();
                   controls = new THREE.FlyControls( camera, renderer.domElement );
