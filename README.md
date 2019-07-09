@@ -3,7 +3,7 @@
 ### Grupo responsável pelo repositório:
 
 - Rafael Alonso (RA 620084)
-- Washingtonon Paes (RA 620190)
+- Washington Paes (RA 620190)
 - William Alves (RA 620203)
 #
 
@@ -25,6 +25,23 @@ Os arquivos `Index.js`, `package-lock.json` e `package.json` são utilizados ape
 - Matriz de Transformação do modelo (uma diferente para cada modelo);
 - Matriz de Visualização (uma para toda a a cena).
 - Duas posições distintas de câmeras
+### Atividade Final:
+-Requisitos básicos:
+- Contendo pelo menos:
+- Dois objetos carregados de arquivos
+- Cinco objetos no total
+- Dois movimentos distintos
+- Uma curva de bézier
+- Textura em algum modelo obj
+- Textura em algum objeto simples
+- Shader próprio com cálculo de iluminação phong (em shader próprio)
+- Duas posições distintas de câmeras
+- Alguma iteração do usuário (teclado ou mouse)
+- Um objeto articulado (uso movimento relativo)
+
+Requisitos extras:
+- Detecção de colisão;
+- Mais objetos, texturas, shaders, cameras, etc ...
 #
 
 ### Setup
@@ -42,7 +59,7 @@ No linux recomenda-se usar o simple server do python:
 -Abra o diretório com o index no terminal e crie um servidor para poder acessar os arquivos localmente
 
 ```
-$python -m SimpleHTTPSserver
+$python -m SimpleHTTPServer
 ```
 
 Abra no navegador o endereço 'http://localhost:8000' para visualizar o projeto.
