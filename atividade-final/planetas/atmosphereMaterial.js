@@ -30,28 +30,30 @@ createAtmosphereMaterial	= function(){
 		'}',
 	].join('\n')
 
+
 	// create custom material from the shader code above
 	//   that is within specially labeled script tags
+  var phong = THREE.ShaderLib.phong;
+  var uniforms = THREE.UniformsUtils.clone(phong.uniforms);
+  uniforms.coeficient = {
+    type  : "f",
+    value : 1.0
+  };
+  uniforms.power = {
+    type  : "f",
+    value : 2
+  };
+  uniforms.glowColor = {
+    type  : "c",
+    value : new THREE.Color('pink')
+  };
 	var material	= new THREE.ShaderMaterial({
-		uniforms: { 
-			coeficient	: {
-				type	: "f", 
-				value	: 1.0
-			},
-			power		: {
-				type	: "f",
-				value	: 2
-			},
-			glowColor	: {
-				type	: "c",
-				value	: new THREE.Color('pink')
-			},
-		},
+		uniforms: uniforms,
 		vertexShader	: vertexShader,
 		fragmentShader	: fragmentShader,
 		//blending	: THREE.AdditiveBlending,
 		transparent	: true,
 		depthWrite	: false,
 	});
-	return material
+	return material;
 }

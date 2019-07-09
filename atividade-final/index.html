@@ -62,7 +62,7 @@
 
       <script>
         // Variable declaration
-        var camera, cameraDefault, cameraEarth, cameraSpaceShip;
+        var camera, cameraDefault, cameraSystem, cameraSpaceShip;
         var onRenderFcts= [];
         var scene = new THREE.Scene();
 
@@ -79,15 +79,15 @@
         //    CAMERAS    //
         ////////////////////////////////////////////////////////////////////////
           // create default camera
-        	cameraDefault	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
-        	cameraDefault.position.z = -18;
+        	cameraDefault	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000 );
+        	cameraDefault.position.set(0.3,-3,-39);
 
           // create earth camera
-        	cameraEarth	= new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000 );
-        	cameraEarth.position.z = -35;
+        	cameraSystem	= new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000 );
+        	cameraSystem.position.set(0,50,20);
 
           // set the active camera
-        	camera = cameraEarth;
+        	camera = cameraDefault;
 
         ////////////////////////////////////////////////////////////////////////
         //    LIGHTS    //
@@ -275,6 +275,7 @@
 
           var clock = new THREE.Clock();
           controls = new THREE.FlyControls( camera, renderer.domElement );
+          camera.lookAt(containerSun.position);
 
           window.addEventListener( 'resize', function() {
             SCREEN_HEIGHT = window.innerHeight;
@@ -292,14 +293,15 @@
         	function onDocumentKeyDown(event){
         	    switch (event.keyCode){
         	      case 49: // 1
-        	      	camera = cameraEarth;
-        	      	camera.updateProjectionMatrix();
-                  controls = new THREE.FlyControls( camera, renderer.domElement );
-        	      	break;
-        	      case 50: // 2
         	      	camera = cameraDefault;
         	      	camera.updateProjectionMatrix();
                   controls = new THREE.FlyControls( camera, renderer.domElement );
+                  camera.lookAt(containerSun.position);
+        	      	break;
+        	      case 50: // 2
+        	      	camera = cameraSystem;
+        	      	camera.updateProjectionMatrix();
+                  camera.lookAt(containerSun.position);
         	      	break;
         	    }
         	}

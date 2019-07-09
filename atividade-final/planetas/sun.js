@@ -7,7 +7,7 @@ createSun	= function(){
 		bumpScale: 0.05,
 	})
 	var mesh = new THREE.Mesh(geometry, material)
-	return mesh	
+	return mesh
 }
 
 sun = function(AtmosphereMaterial){
@@ -21,7 +21,7 @@ sun = function(AtmosphereMaterial){
 	sunMesh.scale.multiplyScalar(10)
 	containerSun.add(sunMesh)
 	onRenderFcts.push(function(delta, now){
-		sunMesh.rotation.y += 1/32 * delta;		
+		sunMesh.rotation.y += 1/32 * delta;
 	})
 
 	var geometry = new THREE.SphereGeometry(0.5, 32, 32)
