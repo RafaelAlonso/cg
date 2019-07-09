@@ -143,7 +143,7 @@ earthAndMoon = function(atmosphereMaterial){
 	onRenderFcts.push(function(delta, now){
 		var position	= containerEarth.position
 		// handle planet revolution
-		var angle	= 0.05 * now * Math.PI * 2;
+		var angle	= 0.03 * now * Math.PI * 2;
 		position.x	= 17.8 * Math.cos(angle);
 		position.y	= 18.0 * Math.cos(angle+Math.PI/2);
 		position.z	= 16.0 * Math.sin(angle);

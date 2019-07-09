@@ -227,7 +227,7 @@
             // Translation around the sun
             onRenderFcts.push(function(delta, now){
           		var position	= containerMercury.position;
-          		var angle	= 0.3 * now * Math.PI * 2;
+          		var angle	= 0.05 * now * Math.PI * 2;
           		position.x	= 12.6 * Math.cos(angle);
           		position.y	= 12.7 * Math.cos(angle+Math.PI/2);
           		position.z	= 11.9 * Math.sin(angle);
@@ -245,7 +245,7 @@
             // Translation around the sun
           	onRenderFcts.push(function(delta, now){
           		var position	= containerVenus.position;
-          		var angle	= 0.15 * now * Math.PI * 2;
+          		var angle	= 0.04 * now * Math.PI * 2;
           		position.x	= 15.1 * Math.cos(angle);
           		position.y	= 15.5 * Math.cos(angle+Math.PI/2);
           		position.z	= 13.0 * Math.sin(angle);
@@ -272,7 +272,7 @@
             // Translation around the sun
           	onRenderFcts.push(function(delta, now){
           		var position	= containerMars.position;
-          		var angle	= 0.03 * now * Math.PI * 2;
+          		var angle	= 0.025 * now * Math.PI * 2;
           		position.x	= 19 * Math.cos(angle);
           		position.y	= 19 * Math.cos(angle+Math.PI/2);
           		position.z	= 18.5 * Math.sin(angle);
@@ -290,7 +290,7 @@
             // Translation around the sun
           	onRenderFcts.push(function(delta, now){
           		var position	= containerJupiter.position;
-          		var angle	= 0.03 * now * Math.PI * 2;
+          		var angle	= 0.02 * now * Math.PI * 2;
           		position.x	= 30 * Math.cos(angle);
           		position.y	= 30 * Math.cos(angle+Math.PI/2);
           		position.z	= 30 * Math.sin(angle);
